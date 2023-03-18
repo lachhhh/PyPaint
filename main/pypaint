@@ -14,7 +14,7 @@ painting_saved = False
 
 # create the main window
 root = tk.Tk()
-root.title('Paint App')
+root.title('Py Paint')
 
 # create the canvas
 canvas = tk.Canvas(root, width=500, height=500, bg='white')
