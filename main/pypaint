@@ -1,0 +1,80 @@
+import tkinter as tk
+from tkinter import colorchooser
+from tkinter import filedialog
+from tkinter import messagebox
+from PIL import Image, ImageDraw
+import os
+import io
+
+# initialize variables
+brush_size = 5
+brush_color = 'black'
+painting_number = 1
+painting_saved = False
+
+# create the main window
+root = tk.Tk()
+root.title('Paint App')
+
+# create the canvas
+canvas = tk.Canvas(root, width=500, height=500, bg='white')
+canvas.pack(fill=tk.BOTH, expand=True)
+
+# create the brush size slider
+size_slider = tk.Scale(root, from_=1, to=50, orient=tk.HORIZONTAL, label='Brush Size',
+                       length=200, command=lambda x: set_brush_size(int(x)))
+size_slider.pack(side=tk.BOTTOM)
+
+# create the color chooser button
+def choose_color():
+    global brush_color
+    color = colorchooser.askcolor()
+    brush_color = color[1]
+color_button = tk.Button(root, text='Choose Color', command=choose_color)
+color_button.pack(side=tk.BOTTOM)
+
+# set the brush size
+def set_brush_size(size):
+    global brush_size
+    brush_size = size
+
+# draw on the canvas
+def paint(event):
+    global painting_saved
+    x1, y1 = (event.x - brush_size), (event.y - brush_size)
+    x2, y2 = (event.x + brush_size), (event.y + brush_size)
+    canvas.create_oval(x1, y1, x2, y2, fill=brush_color, outline=brush_color)
+    painting_saved = False
+canvas.bind('<B1-Motion>', paint)
+
+# create the save button
+def save_painting():
+    global painting_number, painting_saved
+    filename = 'painting(' + str(painting_number) + ').png'
+    file_path = filedialog.asksaveasfilename(initialdir='.', initialfile=filename,
+                                             filetypes=[('PNG', '*.png')], defaultextension='.png')
+    if file_path:
+        try:
+            # get the canvas image and save it to a file
+            canvas_image = canvas.postscript(colormode='color')
+            image = Image.open(io.BytesIO(canvas_image.encode('utf-8')))
+            image.save(file_path)
+            messagebox.showinfo('Success', 'Painting saved as ' + file_path)
+            painting_number += 1
+            painting_saved = True
+        except Exception as e:
+            messagebox.showerror('Error', 'Failed to save painting:\n' + str(e))
+save_button = tk.Button(root, text='Save', command=save_painting)
+save_button.pack(side=tk.BOTTOM)
+
+# handle closing the window
+def on_closing():
+    global painting_saved
+    if not painting_saved:
+        if messagebox.askyesno('Confirm Exit', 'Do you want to save your painting before exiting?'):
+            save_painting()
+    root.destroy()
+root.protocol('WM_DELETE_WINDOW', on_closing)
+
+# start the main loop
+root.mainloop()
