@@ -20,3 +20,13 @@ Ms paint in Py!
 
 
 ![image](https://user-images.githubusercontent.com/106557220/226142444-12e00b4f-3644-4b7b-9bb9-8ca4b622f591.png)
+
+
+
+
+**BUGS AND FIXES**
+Q: Why after i try to paint after using eraser it doesnt do anything?
+A: It resets your color, go to color and go to whatever you want.
+
+Q: It says Unable to find ghostscript in path?
+A: Install ghostscript then go to path settings in control panel and click new path then put in the path for the bin exe location of ghostscript.
