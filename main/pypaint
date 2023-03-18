@@ -33,6 +33,15 @@ def choose_color():
 color_button = tk.Button(root, text='Choose Color', command=choose_color)
 color_button.pack(side=tk.BOTTOM)
 
+def set_eraser():
+    global brush_color
+    brush_color = canvas['bg']
+eraser_button = tk.Button(root, text='Eraser', command=set_eraser)
+eraser_button.pack(side=tk.BOTTOM)
+
+
+
+
 # set the brush size
 def set_brush_size(size):
     global brush_size
@@ -46,6 +55,9 @@ def paint(event):
     canvas.create_oval(x1, y1, x2, y2, fill=brush_color, outline=brush_color)
     painting_saved = False
 canvas.bind('<B1-Motion>', paint)
+
+eraser_button = tk.Button(root, text='Paint', command=paint)
+eraser_button.pack(side=tk.BOTTOM)
 
 # create the save button
 def save_painting():
