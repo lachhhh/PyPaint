@@ -15,6 +15,8 @@ Ms paint in Py!
 ![image](https://user-images.githubusercontent.com/106557220/226142484-fdd99a1c-90f4-445c-b7f4-fd3a84bd4fa9.png)
 
 
+**eraser**
+![image](https://user-images.githubusercontent.com/106557220/226142833-77aeeb8b-4e68-4a79-80d0-6c5ea3b20235.png)
 
 
 ![image](https://user-images.githubusercontent.com/106557220/226142444-12e00b4f-3644-4b7b-9bb9-8ca4b622f591.png)
